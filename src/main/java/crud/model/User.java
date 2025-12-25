@@ -10,7 +10,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 @Table(name = "cruduser")
-
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)

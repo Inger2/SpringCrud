@@ -5,7 +5,7 @@ import crud.model.User;
 import java.util.List;
 
 public interface UserService {
-    void saveUser(User user);
+    User saveUser(User user);
 
     User getUserById(int id);
 
