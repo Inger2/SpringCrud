@@ -1,9 +1,11 @@
 package crud.service;
 
+import crud.exception.UserAlreadyExistException;
 import crud.exception.UserNotFoundException;
 import crud.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import crud.model.User;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +20,9 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     public User saveUser(User user) {
+        if (userRepository.findByUsername(user.getUsername()).isPresent()) {
+            throw new UserAlreadyExistException(user.getUsername());
+        }
         return userRepository.save(user);
     }
 
@@ -27,7 +32,7 @@ public class UserServiceImpl implements UserService {
     }
 
     public List<User> getAllUsers() {
-        return userRepository.findAll();
+        return userRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
     }
 
     @Transactional
