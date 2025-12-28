@@ -5,10 +5,12 @@ import crud.dto.UserDTO;
 import crud.dto.UserRegistrationDTO;
 import crud.dto.UserUpdateDTO;
 import crud.mapper.UserMapper;
+import crud.model.Role;
 import crud.model.User;
 import crud.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -56,7 +58,6 @@ public class UserController {
     public String registerUser(@Valid @ModelAttribute("user") UserRegistrationDTO userDTO) {
         User user = userMapper.toUserRegistration(userDTO);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRole("ROLE_USER");
         userService.saveUser(user);
         return "redirect:/login";
     }
@@ -79,7 +80,7 @@ public class UserController {
     public String updateUser(@PathVariable int id, @Valid @ModelAttribute("user") UserUpdateDTO userUpdateDTO) {
         User user = userService.getUserById(id);
         userMapper.updateUser(userUpdateDTO, user);
-        userService.updateUserById(id, user);
+        userService.updateUserById(id, user, userUpdateDTO.role());
         return "redirect:/admin/users";
     }
 

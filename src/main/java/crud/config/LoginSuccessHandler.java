@@ -1,6 +1,7 @@
 package crud.config;
 
-import crud.security.UserPrincipal;
+import crud.model.User;
+
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -17,8 +18,8 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
     public void onAuthenticationSuccess(HttpServletRequest request,
                                         HttpServletResponse response,
                                         Authentication authentication) throws IOException, ServletException {
-        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
-        int userId = userPrincipal.getId();
+        User user = (User) authentication.getPrincipal();
+        int userId = user.getId();
         boolean hasUserRole = authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_USER"));
         boolean hasAdminRole = authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"));
         if (hasAdminRole) {

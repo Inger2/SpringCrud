@@ -1,9 +1,12 @@
 package crud.dto;
 
+import crud.model.Role;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.Length;
+
+import java.util.Set;
 
 public record UserUpdateDTO(
 
@@ -18,5 +21,5 @@ public record UserUpdateDTO(
         String email,
 
         @NotNull
-        String role) {
+        int role) {
 }
