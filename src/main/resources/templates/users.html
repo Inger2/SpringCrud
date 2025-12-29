@@ -57,6 +57,7 @@
         <th>id</th>
         <th>name</th>
         <th>email</th>
+        <th>role</th>
         <th>delete</th>
         <th>edit</th>
     </tr>
@@ -67,6 +68,7 @@
         <td><a th:href="@{/user/{id}(id=${user.id})}" th:text="${user.id}"></a></td>
         <td th:text="${user.name}">example</td>
         <td th:text="${user.email}">example</td>
+        <th th:text="${user.roles()}">example</th>
         <td>  <form th:action="@{/users/delete/{id}(id=${user.id})}" th:method="delete">
             <input type="submit" value="Delete"/>
         </form>

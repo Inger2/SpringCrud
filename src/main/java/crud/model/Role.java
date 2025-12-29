@@ -26,4 +26,10 @@ public class Role implements GrantedAuthority {
     public String getAuthority() {
         return role;
     }
+
+    @Override
+    public String toString() {
+        String[] roles = role.split("_");
+        return roles[1];
+    }
 }

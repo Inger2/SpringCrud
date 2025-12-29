@@ -11,8 +11,11 @@
 
     <label for="email">Enter Email:</label>
     <input type="email" id="email" th:field="*{email}" required />
-    <label for="email">Enter Role:</label>
-    <input type="text" id="role" th:field="*{role}" required/>
+    <label for="role">Select Role:</label>
+    <select id="role" th:field="*{role}" required>
+        <option value="1">ADMIN</option>
+        <option value="2">USER</option>
+    </select>
     <br/>
     <input type="submit" value="Update user">
 </form>

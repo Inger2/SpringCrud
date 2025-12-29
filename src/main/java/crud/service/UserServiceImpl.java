@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import crud.model.User;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -34,6 +35,7 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
 
+    @PreAuthorize("#id == principal.id or hasRole('ADMIN')")
     public User getUserById(int id) {
         Optional<User> user = userRepository.findById(id);
         return user.orElseThrow(() -> new UserNotFoundException(id));

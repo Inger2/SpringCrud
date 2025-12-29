@@ -10,7 +10,9 @@ import crud.model.User;
 import crud.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -59,13 +61,13 @@ public class UserController {
         User user = userMapper.toUserRegistration(userDTO);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userService.saveUser(user);
-        return "redirect:/login";
+        return "redirect:/admin/users";
     }
 
     @DeleteMapping("/users/delete/{id}")
     public String deleteUser(@PathVariable int id) {
         userService.deleteUserById(id);
-        return "redirect:/users";
+        return "redirect:/admin/users";
     }
 
     @GetMapping("/users/edit/{id}")
